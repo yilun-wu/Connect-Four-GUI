@@ -18,6 +18,12 @@ namespace ConnectFour
             FirstPlayer,
             SecondPlayer
         }
+        
+        public enum LabelType
+        {
+            None,
+            Warning
+        }
 
         public struct Point
         {
@@ -32,6 +38,7 @@ namespace ConnectFour
         }
 
         private PlayerType[,] board;
+        private LabelType[,] board2;
         public const int nRows = 6;
         public const int nCols = 7;
         private List<List<Point>> lines = new List<List<Point>>();
@@ -45,12 +52,14 @@ namespace ConnectFour
         public void Reset()
         {
             board = new PlayerType[nCols, nRows];
+            board2 = new LabelType[nCols, nRows];
             
             for (int i = 0; i < nCols; ++i)
             {
                 for (int j = 0; j < nRows; ++j)
                 {
                     board[i, j] = PlayerType.Empty;
+                    board2[i, j] = LabelType.None;
                 }
             }
         }
@@ -58,6 +67,11 @@ namespace ConnectFour
         public PlayerType GetPiece(int nCol, int nRow)
         {
             return board[nCol, nRow];
+        }
+
+        public LabelType GetLabel(int nCol, int nRow)
+        {
+            return board2[nCol, nRow];
         }
 
         private void InitializeLines()
@@ -142,6 +156,13 @@ namespace ConnectFour
             return false;
         }
 
+        public bool SetLabel(LabelType label, int nCol, int nRow)
+        {
+            if (nCol < 0 || nCol >= nCols || nRow < 0 || nRow >= nCols)
+                return false;
+            board2[nCol, nRow] = label;
+            return true;
+        }
 
         public int CalculateSets(PlayerType player)
         {

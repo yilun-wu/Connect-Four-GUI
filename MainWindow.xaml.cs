@@ -65,21 +65,128 @@ namespace ConnectFour
 
         private void Refresh()
         {
+            reset_label();
+            check_warn_ver();
+            check_warn_hor();
+            check_warn_dia();
             var colorMap = new Dictionary<Game.PlayerType, Brush> {
                 {Game.PlayerType.Empty, Brushes.Black},
                 {Game.PlayerType.FirstPlayer, Brushes.Red},
                 {Game.PlayerType.SecondPlayer, Brushes.Blue}
             };
+            var colorMap2 = new Dictionary<Game.LabelType, Brush> {
+                {Game.LabelType.Warning,Brushes.Orange}
+            };
+
             for (int i = 0; i < Game.nCols; ++i)
             {
                 for (int j = 0; j < Game.nRows; ++j)
                 {
                     //TODO
                     pieces[i, j].Fill = colorMap[theGame.GetPiece(i, j)];
+                    if (theGame.GetLabel(i, j) != Game.LabelType.None) pieces[i, j].Fill = colorMap2[theGame.GetLabel(i, j)];
                 }
             }
             tb.Text = String.Format("Scores: {0}/{1}",theGame.CalculateScore(Game.PlayerType.FirstPlayer),
                 theGame.CalculateScore(Game.PlayerType.SecondPlayer));
+        }
+
+        void reset_label()
+        {
+            for (int i = 0; i < Game.nCols; ++i)
+            {
+                for (int j = 0; j < Game.nRows; ++j)
+                {
+                    theGame.SetLabel(Game.LabelType.None, i, j);
+                }
+            }
+        }
+
+        void check_warn_ver()
+        {
+            for (int i = 0; i < Game.nCols; ++i)
+            {
+                for (int j = 0; j < Game.nRows - 3; ++j)
+                {
+                    if (theGame.GetPiece(i, j) == Game.PlayerType.SecondPlayer && theGame.GetPiece(i, j + 1) == Game.PlayerType.SecondPlayer && theGame.GetPiece(i, j + 2) == Game.PlayerType.SecondPlayer && theGame.GetPiece(i, j + 3) == Game.PlayerType.Empty)
+                    {
+                        theGame.SetLabel(Game.LabelType.Warning, i, j + 3);
+                    }
+                    //else theGame.SetLabel(Game.LabelType.None, i, j + 3);
+                }
+            }
+        }
+
+        void check_warn_hor()
+        {
+            for (int i = 0; i < Game.nRows; ++i)
+            {
+                for (int j = 0; j < Game.nCols - 3; ++j)
+                {
+                    bool dead = false;
+                    int num_spot = 0;
+                    for (int k = j; k <= j+3; ++k)
+                    {
+                        if (theGame.GetPiece(k, i) == Game.PlayerType.SecondPlayer) { num_spot++; }
+                        if (theGame.GetPiece(k, i) == Game.PlayerType.FirstPlayer) { dead = true; break; }
+                    }
+                    if (dead == false && num_spot >= 1)
+                    {
+                        for (int k = j; k <= j + 3; ++k)
+                        {
+                            if (theGame.GetPiece(k, i) == Game.PlayerType.Empty) { theGame.SetLabel(Game.LabelType.Warning, k, i); }
+                        }
+
+                    }
+                }
+            }
+        }
+
+        void check_warn_dia()
+        {
+            for (int i = 0; i < 3; ++i) //row number
+            {
+                for (int j = 3; j < Game.nCols; ++j)
+                {
+                    bool dead = false;
+                    int num_spot = 0;
+                    for (int k = 0; k < 4; ++k)
+                    {
+                        if (theGame.GetPiece(j-k, i+k) == Game.PlayerType.SecondPlayer) { num_spot++; }
+                        if (theGame.GetPiece(j-k, i+k) == Game.PlayerType.FirstPlayer) { dead = true; break; }
+                    }
+                    if (dead == false && num_spot >= 1)
+                    {
+                        for (int k = 0; k <4; ++k)
+                        {
+                            if (theGame.GetPiece(j-k, i+k) == Game.PlayerType.Empty) { theGame.SetLabel(Game.LabelType.Warning, j-k, i+k); }
+                        }
+
+                    }
+                }
+            }
+
+            for (int i = 0; i < 3; ++i) //row number
+            {
+                for (int j = 3; j > 0; --j)
+                {
+                    bool dead = false;
+                    int num_spot = 0;
+                    for (int k = 0; k < 4; ++k)
+                    {
+                        if (theGame.GetPiece(j + k, i + k) == Game.PlayerType.SecondPlayer) { num_spot++; }
+                        if (theGame.GetPiece(j + k, i + k) == Game.PlayerType.FirstPlayer) { dead = true; break; }
+                    }
+                    if (dead == false && num_spot >= 1)
+                    {
+                        for (int k = 0; k < 4; ++k)
+                        {
+                            if (theGame.GetPiece(j + k, i + k) == Game.PlayerType.Empty) { theGame.SetLabel(Game.LabelType.Warning, j + k, i + k); }
+                        }
+
+                    }
+                }
+            }
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
