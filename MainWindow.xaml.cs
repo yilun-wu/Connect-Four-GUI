@@ -29,6 +29,7 @@ namespace ConnectFour
 
         private Game theGame = new Game();
         private Ellipse[,] pieces;
+        private StatusWindow statusWindow = new StatusWindow();
 
         private void AddPieces()
         {
@@ -87,6 +88,7 @@ namespace ConnectFour
                     if (theGame.GetLabel(i, j) != Game.LabelType.None) pieces[i, j].Fill = colorMap2[theGame.GetLabel(i, j)];
                 }
             }
+            //TODO: statusWindow.UpdatePosition
             tb.Text = String.Format("Scores: {0}/{1}",theGame.CalculateScore(Game.PlayerType.FirstPlayer),
                 theGame.CalculateScore(Game.PlayerType.SecondPlayer));
         }
@@ -227,6 +229,7 @@ namespace ConnectFour
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             AddPieces();
+            statusWindow.Show();
         }
 
 
