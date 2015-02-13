@@ -13,10 +13,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.IO.Ports;
-using System.Threading;
-
-
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
 
 namespace ConnectFour
 {
@@ -25,22 +26,35 @@ namespace ConnectFour
     /// </summary>
     public partial class MainWindow : Window
     {
-
-
+        private System.IO.Ports.SerialPort serialPort1; 
+        string RxString;
         public MainWindow()
         {
             InitializeComponent();
-            
+            StartUSBCommunication();
         }
+
+        private void StartUSBCommunication()
+        {
+            this.serialPort1 = new System.IO.Ports.SerialPort(new System.ComponentModel.Container());
+            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
+            
+
+            serialPort1.PortName = "COM4";
+            serialPort1.BaudRate = 9600;
+
+            serialPort1.Open();
+        }
+
+
+
 
 
         private Game theGame = new Game();
         private Ellipse[,] pieces;
-        private StatusWindow statusWindow = new StatusWindow();
-
+        
         private void AddPieces()
         {
-         
             pieces = new Ellipse[Game.nCols, Game.nRows];
             const int size = 80;
             for(int i=0; i< Game.nCols; ++i)
@@ -59,7 +73,7 @@ namespace ConnectFour
             }
         }
 
-        private void Piece_Click(object sender, MouseButtonEventArgs e)
+      private void Piece_Click(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
@@ -69,6 +83,26 @@ namespace ConnectFour
             {
                 theGame.PlayAt(Game.PlayerType.SecondPlayer, ((Game.Point)(sender as Ellipse).Tag).Col);
             }
+            Refresh();
+        }
+
+        private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
+        {
+            RxString = serialPort1.ReadExisting();
+            char number = RxString[0];
+            int val;
+            switch (number)
+            {
+                case '1': val = 0; break;
+                case '2': val = 1; break;
+                case '3': val = 2; break;
+                case '4': val = 3; break;
+                case '5': val = 4; break;
+                case '6': val = 5; break;
+                case '7': val = 6; break;
+                default: val = 3; break;
+            }
+            theGame.PlayAt(Game.PlayerType.SecondPlayer, val);
             Refresh();
         }
 
@@ -96,7 +130,6 @@ namespace ConnectFour
                     if (theGame.GetLabel(i, j) != Game.LabelType.None) pieces[i, j].Fill = colorMap2[theGame.GetLabel(i, j)];
                 }
             }
-            //TODO: statusWindow.UpdatePosition
             tb.Text = String.Format("Scores: {0}/{1}",theGame.CalculateScore(Game.PlayerType.FirstPlayer),
                 theGame.CalculateScore(Game.PlayerType.SecondPlayer));
         }
@@ -237,197 +270,8 @@ namespace ConnectFour
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             AddPieces();
-          //  Updated upstream;
-            statusWindow.Show();
-
-           // InitializeSerialCommunication();
         }
 
-        static bool _continue;
-        static SerialPort _serialPort;
-
-        public static void InitializeSerialCommunication()
-        {
-            string name;
-            string message;
-            StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;
-            Thread readThread = new Thread(Read);
-
-            // Create a new SerialPort object with default settings.
-            _serialPort = new SerialPort();
-
-            // Allow the user to set the appropriate properties.
-            _serialPort.PortName = SetPortName(_serialPort.PortName);
-            _serialPort.BaudRate = SetPortBaudRate(_serialPort.BaudRate);
-            _serialPort.Parity = SetPortParity(_serialPort.Parity);
-            _serialPort.DataBits = SetPortDataBits(_serialPort.DataBits);
-            _serialPort.StopBits = SetPortStopBits(_serialPort.StopBits);
-            _serialPort.Handshake = SetPortHandshake(_serialPort.Handshake);
-
-            // Set the read/write timeouts
-            _serialPort.ReadTimeout = 500;
-            _serialPort.WriteTimeout = 500;
-
-            _serialPort.Open();
-            _continue = true;
-            readThread.Start();
-
-            Console.Write("Name: ");
-            name = Console.ReadLine();
-
-            Console.WriteLine("Type QUIT to exit");
-
-            while (_continue)
-            {
-                message = Console.ReadLine();
-
-                if (stringComparer.Equals("quit", message))
-                {
-                    _continue = false;
-                }
-                else
-                {
-                    _serialPort.WriteLine(
-                        String.Format("<{0}>: {1}", name, message));
-                }
-            }
-
-            readThread.Join();
-            _serialPort.Close();
-        }
-
-        public static void Read()
-        {
-            while (_continue)
-            {
-                try
-                {
-                    string message = _serialPort.ReadLine();
-                    Console.WriteLine(message);
-                }
-                catch (TimeoutException) { }
-            }
-        }
-
-        // Display Port values and prompt user to enter a port. 
-        public static string SetPortName(string defaultPortName)
-        {
-            string portName;
-
-            Console.WriteLine("Available Ports:");
-            foreach (string s in SerialPort.GetPortNames())
-            {
-                Console.WriteLine("   {0}", s);
-            }
-
-            Console.Write("Enter COM port value (Default: {0}): ", defaultPortName);
-            portName = Console.ReadLine();
-
-            if (portName == "" || !(portName.ToLower()).StartsWith("com"))
-            {
-                portName = defaultPortName;
-            }
-            return portName;
-        }
-        // Display BaudRate values and prompt user to enter a value. 
-        public static int SetPortBaudRate(int defaultPortBaudRate)
-        {
-            string baudRate;
-
-            Console.Write("Baud Rate(default:{0}): ", defaultPortBaudRate);
-            baudRate = Console.ReadLine();
-
-            if (baudRate == "")
-            {
-                baudRate = defaultPortBaudRate.ToString();
-            }
-
-            return int.Parse(baudRate);
-            Stashed changes;
-        }
-
-        // Display PortParity values and prompt user to enter a value. 
-        public static Parity SetPortParity(Parity defaultPortParity)
-        {
-            string parity;
-
-            Console.WriteLine("Available Parity options:");
-            foreach (string s in Enum.GetNames(typeof(Parity)))
-            {
-                Console.WriteLine("   {0}", s);
-            }
-
-            Console.Write("Enter Parity value (Default: {0}):", defaultPortParity.ToString(), true);
-            parity = Console.ReadLine();
-
-            if (parity == "")
-            {
-                parity = defaultPortParity.ToString();
-            }
-
-            return (Parity)Enum.Parse(typeof(Parity), parity, true);
-        }
-        // Display DataBits values and prompt user to enter a value. 
-        public static int SetPortDataBits(int defaultPortDataBits)
-        {
-            string dataBits;
-
-            Console.Write("Enter DataBits value (Default: {0}): ", defaultPortDataBits);
-            dataBits = Console.ReadLine();
-
-            if (dataBits == "")
-            {
-                dataBits = defaultPortDataBits.ToString();
-            }
-
-            return int.Parse(dataBits.ToUpperInvariant());
-        }
-
-        // Display StopBits values and prompt user to enter a value. 
-        public static StopBits SetPortStopBits(StopBits defaultPortStopBits)
-        {
-            string stopBits;
-
-            Console.WriteLine("Available StopBits options:");
-            foreach (string s in Enum.GetNames(typeof(StopBits)))
-            {
-                Console.WriteLine("   {0}", s);
-            }
-
-            Console.Write("Enter StopBits value (None is not supported and \n" +
-             "raises an ArgumentOutOfRangeException. \n (Default: {0}):", defaultPortStopBits.ToString());
-            stopBits = Console.ReadLine();
-
-            if (stopBits == "")
-            {
-                stopBits = defaultPortStopBits.ToString();
-            }
-
-            return (StopBits)Enum.Parse(typeof(StopBits), stopBits, true);
-        }
-        public static Handshake SetPortHandshake(Handshake defaultPortHandshake)
-        {
-            string handshake;
-
-            Console.WriteLine("Available Handshake options:");
-            foreach (string s in Enum.GetNames(typeof(Handshake)))
-            {
-                Console.WriteLine("   {0}", s);
-            }
-
-            Console.Write("End Handshake value (Default: {0}):", defaultPortHandshake.ToString());
-            handshake = Console.ReadLine();
-
-            if (handshake == "")
-            {
-                handshake = defaultPortHandshake.ToString();
-            }
-
-            return (Handshake)Enum.Parse(typeof(Handshake), handshake, true);
-        }
 
     }
-
-
 }
-

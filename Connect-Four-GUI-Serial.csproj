@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{82810B0B-6A18-4462-BEA1-5499B0B9CA87}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>WindowsApplication</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>Connect_Four_GUI_Serial</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".git\config" />
+    <None Include=".git\description" />
+    <None Include=".git\FETCH_HEAD" />
+    <None Include=".git\HEAD" />
+    <None Include=".git\hooks\applypatch-msg.sample" />
+    <None Include=".git\hooks\commit-msg.sample" />
+    <None Include=".git\hooks\post-update.sample" />
+    <None Include=".git\hooks\pre-applypatch.sample" />
+    <None Include=".git\hooks\pre-commit.sample" />
+    <None Include=".git\hooks\pre-push.sample" />
+    <None Include=".git\hooks\pre-rebase.sample" />
+    <None Include=".git\hooks\prepare-commit-msg.sample" />
+    <None Include=".git\hooks\update.sample" />
+    <None Include=".git\index" />
+    <None Include=".git\info\exclude" />
+    <None Include=".git\logs\HEAD" />
+    <None Include=".git\logs\refs\heads\master" />
+    <None Include=".git\logs\refs\remotes\origin\HEAD" />
+    <None Include=".git\objects\09\10a51599e66f5550ae466f95a40987674c7f2f" />
+    <None Include=".git\objects\09\ea55a295dbf67f825d6c98c8df96a3a5c1a43a" />
+    <None Include=".git\objects\12\5b8a0da9f4a629a125a0148bd762f08d5bb721" />
+    <None Include=".git\objects\15\c5e39de15528134f0e622f0309cb5e808f9c6f" />
+    <None Include=".git\objects\1c\78cbda8b82326d943bac2cf675fa389f509424" />
+    <None Include=".git\objects\1d\96ca9da49ad3f38bcf67885a83f18185377d55" />
+    <None Include=".git\objects\24\817f4e26969a1d080a998548d6366d336176fe" />
+    <None Include=".git\objects\25\a9a23a91ac9eb0c95b3f1ad74610f157d10f68" />
+    <None Include=".git\objects\26\452d34fca530f7a14959e6b8c35bca1d17af09" />
+    <None Include=".git\objects\2f\007cfcb44ddc0469bf67f7566de20adfcf176d" />
+    <None Include=".git\objects\31\38c12c069fb62f3f0cd99940f8d128de131f74" />
+    <None Include=".git\objects\34\5b5188546be205b0a6eafe279a40920cae2030" />
+    <None Include=".git\objects\37\266bbd76c7d75e264f46c70fbdfb6592e029bf" />
+    <None Include=".git\objects\38\6ab9afb15ff150c9c4bf60008b3f94fb4bd3c1" />
+    <None Include=".git\objects\67\4588988825dbbaaede77ba60d629e41c94e118" />
+    <None Include=".git\objects\6c\05a9776bd7cbae976fdcec7e3a254e93018279" />
+    <None Include=".git\objects\7d\d9143e0855400e59902a23ffb15bb297bb238c" />
+    <None Include=".git\objects\81\9a17374cd14ab1cfc70e0f43be3f30b4ff6124" />
+    <None Include=".git\objects\85\d10c9b62ec82dcaaef6e6aca88bee80dab84ca" />
+    <None Include=".git\objects\86\ff2a2fcf2fc6164731891da3d83d031640f495" />
+    <None Include=".git\objects\8f\1e9c4fe62e8836ffc5ee0a13191edf805aa214" />
+    <None Include=".git\objects\8f\2fd95d626cc8451ccec1b2bcd6419e91491c31" />
+    <None Include=".git\objects\90\4b4ab6b0c44280b3abb18f3c5982b2824182aa" />
+    <None Include=".git\objects\96\3fc839d0cf78f803958f748680b38499b89c29" />
+    <None Include=".git\objects\99\cce124b18192b32647eae915665bbd397606ef" />
+    <None Include=".git\objects\9a\699fdddd55185d8c1ef95982d52144da7d9970" />
+    <None Include=".git\objects\9f\18cbb721e9b483709cd8234f3a523158ccdc06" />
+    <None Include=".git\objects\a5\6330695558614b1a282dfd8127e87e242dbe18" />
+    <None Include=".git\objects\bd\ba5bcb94069ed5850a07bdb514d6810237da9f" />
+    <None Include=".git\objects\c0\dfecc9d7dea88e869ba6880671b1e73d600030" />
+    <None Include=".git\objects\c4\91fe8b8dc02e70566885929f510e14c5f9a6be" />
+    <None Include=".git\objects\c6\42021b0c447fb79b76f16cf80fa1bca04743a2" />
+    <None Include=".git\objects\c7\ddc52962eff65b39dc10885927f80692a2f9e1" />
+    <None Include=".git\objects\ce\3a3cbc0b0921103233f07bdcfd187260801ba6" />
+    <None Include=".git\objects\d3\7fa602a5069955f119a5c2cb51357baf1cd03a" />
+    <None Include=".git\objects\d8\af438ea25f8f2f3029106ef5e325ef958b146f" />
+    <None Include=".git\objects\df\ac350c746188d70c84d309c3c7a3ef5479bc49" />
+    <None Include=".git\objects\e3\951b96253eedab64cb235180ce8982900205f6" />
+    <None Include=".git\objects\e6\9de29bb2d1d6434b8b29ae775ad8c2e48c5391" />
+    <None Include=".git\objects\e9\660ae839ffa986e68693e158e416fbf50c5910" />
+    <None Include=".git\objects\ea\322467e4064a6042fb4bb9cc0ce086a499e84c" />
+    <None Include=".git\objects\ee\71442348dc000828d397790eb3d2d72c3bc4c7" />
+    <None Include=".git\objects\f7\6497a81aff7568f07d8226ba3551703be4ba60" />
+    <None Include=".git\objects\f7\e14d7e3e9e90d5119cfa4f859e23e5f14db77b" />
+    <None Include=".git\objects\f9\6b1d6b3fa078c224681c663f485501b44f10c1" />
+    <None Include=".git\objects\fa\d249e406f0363449addb9c6ecaf61077d5b19b" />
+    <None Include=".git\objects\ff\a47d1b1517a290a943688f724267781b54757d" />
+    <None Include=".git\objects\ff\ecec851ab4deae63e81647b4655c7d1fe6dfd7" />
+    <None Include=".git\packed-refs" />
+    <None Include=".git\refs\heads\master" />
+    <None Include=".git\refs\remotes\origin\HEAD" />
+    <None Include="App.config" />
+    <None Include="Properties\Settings.settings" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Game.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs" />
+    <Compile Include="Properties\Settings.Designer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".git\ms-persist.xml" />
+    <Content Include="Baymax_Render.png" />
+    <Content Include="MAP.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".git\objects\info\" />
+    <Folder Include=".git\objects\pack\" />
+    <Folder Include=".git\refs\tags\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>

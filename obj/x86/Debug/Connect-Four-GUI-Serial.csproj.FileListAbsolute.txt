@@ -1,0 +1,2 @@
+\\psf\Home\Desktop\AER201\Connect-Four-GUI\bin\Debug\WindowsApplication.exe.config
+\\psf\Home\Desktop\AER201\Connect-Four-GUI\obj\x86\Debug\Connect-Four-GUI-Serial.csprojResolveAssemblyReference.cache
