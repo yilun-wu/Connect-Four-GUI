@@ -343,7 +343,7 @@ namespace ConnectFour
             }
 
             return int.Parse(baudRate);
-            Stashed changes;
+            //Stashed changes;
         }
 
         // Display PortParity values and prompt user to enter a value. 
