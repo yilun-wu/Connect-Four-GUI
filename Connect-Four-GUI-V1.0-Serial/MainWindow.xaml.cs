@@ -26,19 +26,18 @@ namespace ConnectFour
     /// </summary>
     public partial class MainWindow : Window
     {
-        private System.IO.Ports.SerialPort serialPort1; 
+        private System.IO.Ports.SerialPort serialPort1;
         string RxString;
         public MainWindow()
         {
             InitializeComponent();
-            StartUSBCommunication();
         }
 
         private void StartUSBCommunication()
         {
             this.serialPort1 = new System.IO.Ports.SerialPort(new System.ComponentModel.Container());
             this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
-            
+
 
             serialPort1.PortName = "COM4";
             serialPort1.BaudRate = 9600;
@@ -52,14 +51,14 @@ namespace ConnectFour
 
         private Game theGame = new Game();
         private Ellipse[,] pieces;
-        
+
         private void AddPieces()
         {
             pieces = new Ellipse[Game.nCols, Game.nRows];
             const int size = 80;
-            for(int i=0; i< Game.nCols; ++i)
+            for (int i = 0; i < Game.nCols; ++i)
             {
-                for (int j=0; j < Game.nRows; ++j)
+                for (int j = 0; j < Game.nRows; ++j)
                 {
                     pieces[i, j] = new Ellipse();
                     pieces[i, j].Width = pieces[i, j].Height = size;
@@ -73,7 +72,7 @@ namespace ConnectFour
             }
         }
 
-      private void Piece_Click(object sender, MouseButtonEventArgs e)
+        private void Piece_Click(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
@@ -103,7 +102,7 @@ namespace ConnectFour
                 default: val = 3; break;
             }
             theGame.PlayAt(Game.PlayerType.SecondPlayer, val);
-            Refresh();
+            this.Dispatcher.Invoke(Refresh);
         }
 
         private void Refresh()
@@ -130,7 +129,7 @@ namespace ConnectFour
                     if (theGame.GetLabel(i, j) != Game.LabelType.None) pieces[i, j].Fill = colorMap2[theGame.GetLabel(i, j)];
                 }
             }
-            tb.Text = String.Format("Scores: {0}/{1}",theGame.CalculateScore(Game.PlayerType.FirstPlayer),
+            tb.Text = String.Format("Scores: {0}/{1}", theGame.CalculateScore(Game.PlayerType.FirstPlayer),
                 theGame.CalculateScore(Game.PlayerType.SecondPlayer));
         }
 
@@ -168,7 +167,7 @@ namespace ConnectFour
                 {
                     bool dead = false;
                     int num_spot = 0;
-                    for (int k = j; k <= j+3; ++k)
+                    for (int k = j; k <= j + 3; ++k)
                     {
                         if (theGame.GetPiece(k, i) == Game.PlayerType.SecondPlayer) { num_spot++; }
                         if (theGame.GetPiece(k, i) == Game.PlayerType.FirstPlayer) { dead = true; break; }
@@ -195,14 +194,14 @@ namespace ConnectFour
                     int num_spot = 0;
                     for (int k = 0; k < 4; ++k)
                     {
-                        if (theGame.GetPiece(j-k, i+k) == Game.PlayerType.SecondPlayer) { num_spot++; }
-                        if (theGame.GetPiece(j-k, i+k) == Game.PlayerType.FirstPlayer) { dead = true; break; }
+                        if (theGame.GetPiece(j - k, i + k) == Game.PlayerType.SecondPlayer) { num_spot++; }
+                        if (theGame.GetPiece(j - k, i + k) == Game.PlayerType.FirstPlayer) { dead = true; break; }
                     }
                     if (dead == false && num_spot >= 1)
                     {
-                        for (int k = 0; k <4; ++k)
+                        for (int k = 0; k < 4; ++k)
                         {
-                            if (theGame.GetPiece(j-k, i+k) == Game.PlayerType.Empty) { theGame.SetLabel(Game.LabelType.Warning, j-k, i+k); }
+                            if (theGame.GetPiece(j - k, i + k) == Game.PlayerType.Empty) { theGame.SetLabel(Game.LabelType.Warning, j - k, i + k); }
                         }
 
                     }
@@ -234,12 +233,12 @@ namespace ConnectFour
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            
+
         }
 
         private void theCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            
+
         }
 
         private void ui_mnuNew_Click(object sender, RoutedEventArgs e)
@@ -270,6 +269,7 @@ namespace ConnectFour
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             AddPieces();
+            StartUSBCommunication();
         }
 
 
