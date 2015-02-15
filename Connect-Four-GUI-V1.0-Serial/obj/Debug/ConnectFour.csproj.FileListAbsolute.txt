@@ -24,3 +24,16 @@
 \\psf\Home\Desktop\Connect-Four-GUI-V1.0\obj\Debug\ConnectFour.g.resources
 \\psf\Home\Desktop\Connect-Four-GUI-V1.0\obj\Debug\ConnectFour.Properties.Resources.resources
 \\psf\Home\Desktop\Connect-Four-GUI-V1.0\obj\Debug\ConnectFour.csproj.GenerateResource.Cache
+\\psf\Home\Desktop\AER201\Connect-Four-GUI\Connect-Four-GUI-V1.0-Serial\bin\Debug\ConnectFour.exe.config
+\\psf\Home\Desktop\AER201\Connect-Four-GUI\Connect-Four-GUI-V1.0-Serial\obj\Debug\ConnectFour.exe
+\\psf\Home\Desktop\AER201\Connect-Four-GUI\Connect-Four-GUI-V1.0-Serial\obj\Debug\ConnectFour.pdb
+\\psf\Home\Desktop\AER201\Connect-Four-GUI\Connect-Four-GUI-V1.0-Serial\bin\Debug\ConnectFour.exe
+\\psf\Home\Desktop\AER201\Connect-Four-GUI\Connect-Four-GUI-V1.0-Serial\bin\Debug\ConnectFour.pdb
+\\psf\Home\Desktop\AER201\Connect-Four-GUI\Connect-Four-GUI-V1.0-Serial\obj\Debug\ConnectFour.csprojResolveAssemblyReference.cache
+\\psf\Home\Desktop\AER201\Connect-Four-GUI\Connect-Four-GUI-V1.0-Serial\obj\Debug\MainWindow.baml
+\\psf\Home\Desktop\AER201\Connect-Four-GUI\Connect-Four-GUI-V1.0-Serial\obj\Debug\MainWindow.g.cs
+\\psf\Home\Desktop\AER201\Connect-Four-GUI\Connect-Four-GUI-V1.0-Serial\obj\Debug\App.g.cs
+\\psf\Home\Desktop\AER201\Connect-Four-GUI\Connect-Four-GUI-V1.0-Serial\obj\Debug\ConnectFour_MarkupCompile.cache
+\\psf\Home\Desktop\AER201\Connect-Four-GUI\Connect-Four-GUI-V1.0-Serial\obj\Debug\ConnectFour.g.resources
+\\psf\Home\Desktop\AER201\Connect-Four-GUI\Connect-Four-GUI-V1.0-Serial\obj\Debug\ConnectFour.Properties.Resources.resources
+\\psf\Home\Desktop\AER201\Connect-Four-GUI\Connect-Four-GUI-V1.0-Serial\obj\Debug\ConnectFour.csproj.GenerateResource.Cache

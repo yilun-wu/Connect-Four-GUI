@@ -89,6 +89,8 @@ namespace ConnectFour
         {
             RxString = serialPort1.ReadExisting();
             char number = RxString[0];
+            //int val = Convert.ToInt32(number);
+            //int val = int.Parse(RxString);
             int val;
             switch (number)
             {
@@ -99,7 +101,7 @@ namespace ConnectFour
                 case '5': val = 4; break;
                 case '6': val = 5; break;
                 case '7': val = 6; break;
-                default: val = 3; break;
+                default: return;
             }
             theGame.PlayAt(Game.PlayerType.SecondPlayer, val);
             this.Dispatcher.Invoke(Refresh);
